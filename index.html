@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>台東博覽會兩日行程</title>
+<style>
+  :root{
+    --sand:#F4EFE4;
+    --paper:#FFFDF8;
+    --ink:#26323A;
+    --taitung-blue:#1F6F8B;
+    --taitung-blue-deep:#13495E;
+    --terracotta:#C9764A;
+    --line:#DCD3BE;
+    --muted:#6E7B82;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--sand);
+    color:var(--ink);
+    font-family:"Noto Serif TC","Songti TC",serif;
+    line-height:1.7;
+  }
+  .util{
+    font-family:"Noto Sans TC","PingFang TC",sans-serif;
+  }
+  header{
+    padding:64px 24px 48px;
+    text-align:center;
+    background:
+      radial-gradient(ellipse at 50% 120%, rgba(31,111,139,0.18), transparent 60%),
+      var(--sand);
+    border-bottom:1px solid var(--line);
+  }
+  .eyebrow{
+    font-family:"Noto Sans TC",sans-serif;
+    letter-spacing:0.32em;
+    font-size:12px;
+    color:var(--terracotta);
+    text-transform:uppercase;
+    margin-bottom:18px;
+  }
+  h1{
+    font-size:clamp(32px,5vw,52px);
+    margin:0 0 12px;
+    font-weight:700;
+    color:var(--taitung-blue-deep);
+  }
+  .subtitle{
+    font-family:"Noto Sans TC",sans-serif;
+    color:var(--muted);
+    font-size:15px;
+    max-width:480px;
+    margin:0 auto;
+  }
+  .meta-row{
+    display:flex;
+    justify-content:center;
+    gap:28px;
+    margin-top:28px;
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:13px;
+    color:var(--taitung-blue-deep);
+  }
+  .meta-row span{ font-weight:600; }
+  main{
+    max-width:760px;
+    margin:0 auto;
+    padding:48px 24px 100px;
+  }
+  .arrival-badge{
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:12px;
+    color:var(--taitung-blue);
+    background:rgba(31,111,139,0.08);
+    border:1px solid rgba(31,111,139,0.25);
+    padding:3px 10px;
+    border-radius:20px;
+    margin-top:8px;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+  .day-block{ margin-bottom:64px; }
+  .day-head{
+    display:flex;
+    align-items:baseline;
+    gap:16px;
+    margin-bottom:8px;
+  }
+  .day-num{
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:13px;
+    letter-spacing:0.2em;
+    color:var(--terracotta);
+  }
+  .day-title{
+    font-size:26px;
+    font-weight:700;
+    color:var(--taitung-blue-deep);
+  }
+  .day-sub{
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:13px;
+    color:var(--muted);
+    margin-bottom:32px;
+    padding-bottom:24px;
+    border-bottom:1px solid var(--line);
+  }
+  .timeline{
+    position:relative;
+    padding-left:28px;
+  }
+  .timeline::before{
+    content:"";
+    position:absolute;
+    left:5px;
+    top:6px;
+    bottom:6px;
+    width:1px;
+    background:var(--line);
+  }
+  .item{
+    position:relative;
+    margin-bottom:30px;
+  }
+  .item::before{
+    content:"";
+    position:absolute;
+    left:-28px;
+    top:6px;
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    background:var(--taitung-blue);
+    border:2px solid var(--paper);
+    box-shadow:0 0 0 1px var(--taitung-blue);
+  }
+  .item.transit::before{
+    background:var(--terracotta);
+    box-shadow:0 0 0 1px var(--terracotta);
+  }
+  .time{
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:0.06em;
+    color:var(--taitung-blue);
+  }
+  .item.transit .time{ color:var(--terracotta); }
+  .item-title{
+    font-size:18px;
+    font-weight:700;
+    margin:4px 0 6px;
+  }
+  .item-desc{
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:14.5px;
+    color:#43504F;
+  }
+  .tag{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:12px;
+    color:var(--terracotta);
+    background:rgba(201,118,74,0.1);
+    border:1px solid rgba(201,118,74,0.3);
+    padding:3px 10px;
+    border-radius:20px;
+    margin-top:8px;
+  }
+  .transit .item-desc{
+    font-style:normal;
+  }
+  .maplink{
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:12px;
+    color:var(--taitung-blue);
+    text-decoration:none;
+    margin-top:6px;
+    border-bottom:1px solid rgba(31,111,139,0.35);
+  }
+  .maplink:hover{ color:var(--taitung-blue-deep); }
+  .ubike{
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:12px;
+    color:#2E8B57;
+    text-decoration:none;
+    margin-top:4px;
+    margin-left:12px;
+    border-bottom:1px solid rgba(46,139,87,0.35);
+  }
+  .ubike:hover{ color:#1F6B3F; }
+  .officiallink{
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:12px;
+    color:var(--terracotta);
+    text-decoration:none;
+    margin-top:4px;
+    margin-left:12px;
+    border-bottom:1px solid rgba(201,118,74,0.35);
+  }
+  .officiallink:hover{ color:#A35E37; }
+  .note-box{
+    margin-top:40px;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-left:3px solid var(--taitung-blue);
+    padding:22px 24px;
+    border-radius:4px;
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:14px;
+  }
+  .note-box h3{
+    margin:0 0 10px;
+    font-size:14px;
+    letter-spacing:0.08em;
+    color:var(--taitung-blue-deep);
+    font-family:"Noto Sans TC",sans-serif;
+  }
+  .note-box ul{
+    margin:0;
+    padding-left:18px;
+    color:#43504F;
+  }
+  .note-box li{ margin-bottom:6px; }
+  footer{
+    text-align:center;
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:12px;
+    color:var(--muted);
+    padding:32px 24px 56px;
+  }
+  .legend{
+    display:flex;
+    justify-content:center;
+    gap:24px;
+    margin-top:24px;
+    font-family:"Noto Sans TC",sans-serif;
+    font-size:12px;
+    color:var(--muted);
+  }
+  .legend span{display:inline-flex;align-items:center;gap:6px;}
+  .dot{width:8px;height:8px;border-radius:50%;display:inline-block;}
+  .dot.blue{background:var(--taitung-blue);}
+  .dot.terra{background:var(--terracotta);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">SLOW FOR LIFE · 2026 台東博覽會</div>
+  <h1>台東兩日慢行程</h1>
+  <p class="subtitle">7/10 抵達入住・7/11 全日參觀・7/12 16:55 搭火車返宜蘭</p>
+  <div class="meta-row">
+    <div>住宿　<span>路得行旅國際青年旅館 台東館</span></div>
+    <div>移動　<span>步行 ・ 單車 ・ 機車</span></div>
+  </div>
+  <div class="legend">
+    <span><i class="dot blue"></i>展覽 / 活動</span>
+    <span><i class="dot terra"></i>交通移動</span>
+    <span>🚲 YouBike站位置</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- DAY 0 -->
+  <section class="day-block">
+    <div class="day-head">
+      <span class="day-num">DAY 0 · 7/10（五）</span>
+      <span class="day-title">抵達日・輕鬆暖身</span>
+    </div>
+    <div class="day-sub">15:56 抵達台東，當晚以入住、補給與輕度探路為主，把體力留給隔天的主場館深度行程</div>
+
+    <div class="timeline">
+
+      <div class="item">
+        <div class="time">15:56</div>
+        <div class="item-title">抵達台東火車站</div>
+        <div class="item-desc">出站後可至站前排班計程車或叫車前往市區，台東火車站離市區約20分鐘車程。</div>
+        <span class="arrival-badge">✈ 抵達</span>
+        <div><a class="maplink" href="https://maps.google.com/?cid=7701541427605191009" target="_blank">📍 在Google地圖開啟</a><a class="ubike" href="https://www.google.com/maps/search/?api=1&query=22.7933056,121.1246944" target="_blank">🚲 YouBike站</a></div>
+      </div>
+
+      <div class="item transit">
+        <div class="time">16:00</div>
+        <div class="item-title">移動：台東火車站 → 旅館</div>
+        <div class="item-desc">建議搭計程車（約200-250元，車程20分鐘），或搭往市區公車到「台東轉運站」後步行15分鐘抵達。</div>
+        <span class="tag">🚕 計程車</span>
+      </div>
+
+      <div class="item">
+        <div class="time">16:30 - 17:00</div>
+        <div class="item-title">辦理入住</div>
+        <div class="item-desc">路得行旅國際青年旅館台東館（廣東路162號），放行李、稍作梳洗，順便跟櫃台問問單車租借與當地建議。</div>
+        <a class="maplink" href="https://maps.google.com/?cid=15356208720822390980" target="_blank">📍 在Google地圖開啟</a>
+        <a class="ubike" href="https://www.google.com/maps/search/?api=1&query=22.7532979,121.1532767" target="_blank">🚲 YouBike站（大同路，步行3分鐘）</a>
+      </div>
+
+      <div class="item transit">
+        <div class="time">17:00</div>
+        <div class="item-title">移動：旅館 → 鐵花村一帶</div>
+        <div class="item-desc">步行即可抵達，距離很近，適合用走的探路。</div>
+        <span class="tag">🚶 步行</span>
+      </div>
+
+      <div class="item">
+        <div class="time">17:00 - 18:30</div>
+        <div class="item-title">鐵花村周邊散策</div>
+        <div class="item-desc">輕鬆逛逛舊站特區外圍與鐵花村，先熟悉明天會深度遊覽的展區方位，順道拍拍夕陽。</div>
+        <a class="maplink" href="https://maps.google.com/?cid=11953694422132767247" target="_blank">📍 鐵花村 在Google地圖開啟</a>
+        <a class="ubike" href="https://www.google.com/maps/search/?api=1&query=22.751664,121.147705" target="_blank">🚲 YouBike站（台東轉運站旁）</a>
+      </div>
+
+      <div class="item">
+        <div class="time">18:30 起</div>
+        <div class="item-title">晚餐</div>
+        <div class="item-desc">鐵花村假日常有市集和live演出，晚餐後可以順道逛逛，悠閒收尾抵達當天。</div>
+      </div>
+
+      <div class="item">
+        <div class="time">21:00 前</div>
+        <div class="item-title">回旅館早點休息</div>
+        <div class="item-desc">把體力留給明天主場館深度行程，記得先上官網或LINE「@ttexpo」預約7/12的A5熱氣球館時段。</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DAY 1 -->
+  <section class="day-block">
+    <div class="day-head">
+      <span class="day-num">DAY 1 · 7/11（六）</span>
+      <span class="day-title">主場館深度日</span>
+    </div>
+    <div class="day-sub">全天無時間壓力，從主場館出發，串聯舊站特區到臨海區，晚上看海收尾</div>
+
+    <div class="timeline">
+
+      <div class="item">
+        <div class="time">08:30</div>
+        <div class="item-title">旅館早餐</div>
+        <div class="item-desc">步行範圍內的老東台米台目、柯家蘿蔔糕，在地早餐開啟一天。</div>
+      </div>
+
+      <div class="item transit">
+        <div class="time">09:00</div>
+        <div class="item-title">移動：旅館 → 台東縣立體育館</div>
+        <div class="item-desc">建議租單車或騎YouBike前往，車程約10-15分鐘，沿途可順遊森林公園、琵琶湖。</div>
+        <span class="tag">🚲 單車</span>
+      </div>
+
+      <div class="item">
+        <div class="time">09:30 - 12:00</div>
+        <div class="item-title">主場館「活的學校」</div>
+        <div class="item-desc">以土地、文化、生活、城市、未來五大主題策展，沉浸式互動展覽，建議安排2.5-3小時細看。</div>
+        <a class="maplink" href="https://maps.google.com/?cid=11915644286674810331" target="_blank">📍 台東縣立體育館 在Google地圖開啟</a>
+        <a class="ubike" href="https://www.google.com/maps/search/?api=1&query=22.751664,121.147705" target="_blank">🚲 YouBike站（台東轉運站旁）</a>
+        <a class="officiallink" href="https://taitungexpo2026.com.tw/about/overview/detail/1" target="_blank">🔗 展覽官網頁面</a>
+      </div>
+
+      <div class="item">
+        <div class="time">12:00 - 13:30</div>
+        <div class="item-title">午餐 + 午休避暑</div>
+        <div class="item-desc">於體育館或舊站特區附近用餐，避開七月正中午烈日。</div>
+      </div>
+
+      <div class="item transit">
+        <div class="time">13:30</div>
+        <div class="item-title">移動：→ 舊站特區</div>
+        <div class="item-desc">步行或單車皆可，展區彼此相鄰，可徒步串聯。</div>
+        <span class="tag">🚶 步行</span>
+      </div>
+
+      <div class="item">
+        <div class="time">13:30 - 16:00</div>
+        <div class="item-title">舊站特區三展</div>
+        <div class="item-desc">「這超台東：未來超市」在地物產主題、「記憶提取所」300則地方故事、「微光流金戲院」返鄉與東漂故事，可慢慢逛。</div>
+        <a class="maplink" href="https://maps.google.com/?cid=741044649544934870" target="_blank">📍 舊站特區（鐵道藝術村）在Google地圖開啟</a>
+        <a class="ubike" href="https://www.google.com/maps/search/?api=1&query=22.751664,121.147705" target="_blank">🚲 YouBike站（台東轉運站旁）</a>
+        <div style="margin-top:4px;">
+          <a class="officiallink" style="margin-left:0;" href="https://taitungexpo2026.com.tw/about/overview/detail/2" target="_blank">🔗 未來超市</a>
+          <a class="officiallink" href="https://taitungexpo2026.com.tw/about/overview/detail/4" target="_blank">🔗 記憶提取所</a>
+          <a class="officiallink" href="https://taitungexpo2026.com.tw/about/overview/detail/3" target="_blank">🔗 微光流金戲院</a>
+        </div>
+        <div class="item-title">北町區 / 美術館區</div>
+        <div class="item-desc">續逛市區展館，有興趣可安排「未來人孵化器」教育展（攀岩挑戰需事先線上預約）。</div>
+        <a class="maplink" href="https://maps.google.com/?cid=518432182383123218" target="_blank">📍 台東美術館 在Google地圖開啟</a>
+        <a class="ubike" href="https://www.google.com/maps/search/?api=1&query=22.7586841,121.1411018" target="_blank">🚲 YouBike站（台東服務中心）</a>
+        <a class="officiallink" href="https://taitungexpo2026.com.tw/about/overview/detail/17" target="_blank">🔗 未來人孵化器官網</a>
+      </div>
+
+      <div class="item transit">
+        <div class="time">17:00</div>
+        <div class="item-title">移動：→ 臨海區</div>
+        <span class="tag">🚲 單車</span>
+      </div>
+
+      <div class="item">
+        <div class="time">17:00 - 18:30</div>
+        <div class="item-title">臨海區看海散步</div>
+        <div class="item-desc">趁夕陽不烈，沿海散步拍照，放鬆一下。</div>
+        <a class="maplink" href="https://maps.google.com/?cid=668752834966429044" target="_blank">📍 台東海濱公園 在Google地圖開啟</a>
+        <span class="ubike" style="cursor:default;border-bottom:none;">🚲 此區無YouBike站，建議從美術館或體育館站騎車前往</span>
+      </div>
+
+      <div class="item">
+        <div class="time">18:30 起</div>
+        <div class="item-title">鐵花村晚餐 + 市集</div>
+        <div class="item-desc">離旅館近，晚上常有市集與live演出，悠閒收尾這一天。體力允許可順遊TTICC原民力特展，或查詢台東藝術節「眾聲之島」當晚場次。</div>
+        <a class="maplink" href="https://maps.google.com/?cid=11953694422132767247" target="_blank">📍 鐵花村 在Google地圖開啟</a>
+        <a class="ubike" href="https://www.google.com/maps/search/?api=1&query=22.751664,121.147705" target="_blank">🚲 YouBike站（台東轉運站旁）</a>
+        <a class="officiallink" href="https://taitungexpo2026.com.tw/about/overview/detail/25" target="_blank">🔗 凹！你是有的（原民力特展）</a>
+      </div>
+
+    </div>
+
+    <div class="note-box">
+      <h3>當晚必做</h3>
+      <ul>
+        <li>上官網 <a class="officiallink" style="margin-left:0;" href="https://taitungexpo2026.com.tw" target="_blank">taitungexpo2026.com.tw</a> 或 LINE「@ttexpo」預約隔天（7/12）<a class="officiallink" href="https://taitungexpo2026.com.tw/about/overview/detail/16" target="_blank">A5「夢想東升－WALK IN熱氣球」</a>時段，名額熱門，要提前搶。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- DAY 2 -->
+  <section class="day-block">
+    <div class="day-head">
+      <span class="day-num">DAY 2 · 7/12（日）</span>
+      <span class="day-title">熱氣球 + 收尾返程日</span>
+    </div>
+    <div class="day-sub">16:55 台東火車站搭車返宜蘭，行程於15:00前結束，預留充裕收拾與移動時間</div>
+
+    <div class="timeline">
+
+      <div class="item">
+        <div class="time">08:00</div>
+        <div class="item-title">退房寄放行李</div>
+        <div class="item-desc">大部分青旅可代為保管行李，輕裝出門玩一整天。</div>
+      </div>
+
+      <div class="item transit">
+        <div class="time">08:30</div>
+        <div class="item-title">移動：旅館 → A5熱氣球館</div>
+        <span class="tag">🚲 單車</span>
+      </div>
+
+      <div class="item">
+        <div class="time">08:30 - 10:00</div>
+        <div class="item-title">A5「夢想東升－WALK IN熱氣球」</div>
+        <div class="item-desc">使用前一晚預約時段優先入場，今年最熱門打卡展館，可走進熱氣球內的沉浸式空間。</div>
+        <a class="officiallink" style="margin-left:0;" href="https://taitungexpo2026.com.tw/about/overview/detail/16" target="_blank">🔗 展覽官網頁面</a>
+      </div>
+
+      <div class="item">
+        <div class="time">10:00 - 12:00</div>
+        <div class="item-title">北町區 / 美術館區 補逛</div>
+        <div class="item-desc">續逛昨天未看完或喜歡的展館。</div>
+        <a class="maplink" href="https://maps.google.com/?cid=518432182383123218" target="_blank">📍 台東美術館 在Google地圖開啟</a>
+        <a class="ubike" href="https://www.google.com/maps/search/?api=1&query=22.7586841,121.1411018" target="_blank">🚲 YouBike站（台東服務中心）</a>
+        <a class="officiallink" href="https://taitungexpo2026.com.tw/about/overview/detail/17" target="_blank">🔗 未來人孵化器官網</a>
+      </div>
+
+      <div class="item">
+        <div class="time">12:00 - 13:00</div>
+        <div class="item-title">午餐 + 採買伴手禮</div>
+        <div class="item-desc">在北町區或舊站特區附近用餐，順手買台東伴手禮帶上火車。</div>
+      </div>
+
+      <div class="item transit">
+        <div class="time">13:00</div>
+        <div class="item-title">移動：→ 台東縣立體育館</div>
+        <span class="tag">🚲 單車</span>
+      </div>
+
+      <div class="item">
+        <div class="time">13:00 - 15:00</div>
+        <div class="item-title">主場館補完 / 深度體驗</div>
+        <div class="item-desc">回主場館補完未看展區，或選1-2個喜歡的舊站特區展館再走一次。</div>
+        <a class="maplink" href="https://maps.google.com/?cid=11915644286674810331" target="_blank">📍 台東縣立體育館 在Google地圖開啟</a>
+        <a class="ubike" href="https://www.google.com/maps/search/?api=1&query=22.751664,121.147705" target="_blank">🚲 YouBike站（台東轉運站旁）</a>
+        <a class="officiallink" href="https://taitungexpo2026.com.tw/about/overview/detail/1" target="_blank">🔗 展覽官網頁面</a>
+      </div>
+
+      <div class="item">
+        <div class="time">15:00 - 15:30</div>
+        <div class="item-title">回旅館取行李</div>
+        <div class="item-desc">確認沒有遺漏物品，準備前往車站。</div>
+        <a class="maplink" href="https://maps.google.com/?cid=15356208720822390980" target="_blank">📍 路得行旅 在Google地圖開啟</a>
+        <a class="ubike" href="https://www.google.com/maps/search/?api=1&query=22.7532979,121.1532767" target="_blank">🚲 YouBike站（大同路，步行3分鐘）</a>
+      </div>
+
+      <div class="item transit">
+        <div class="time">15:30</div>
+        <div class="item-title">移動：旅館 → 台東火車站</div>
+        <div class="item-desc">建議叫計程車，車程約20分鐘。</div>
+        <span class="tag">🚕 計程車</span>
+      </div>
+
+      <div class="item">
+        <div class="time">16:00</div>
+        <div class="item-title">抵達台東火車站</div>
+        <div class="item-desc">留時間買東西、上洗手間，從容候車。</div>
+        <a class="maplink" href="https://maps.google.com/?cid=7701541427605191009" target="_blank">📍 台東火車站 在Google地圖開啟</a>
+        <a class="ubike" href="https://www.google.com/maps/search/?api=1&query=22.7933056,121.1246944" target="_blank">🚲 YouBike站</a>
+      </div>
+
+      <div class="item transit">
+        <div class="time">16:55</div>
+        <div class="item-title">搭車返宜蘭</div>
+        <span class="tag">🚆 台鐵</span>
+      </div>
+
+    </div>
+
+    <div class="note-box">
+      <h3>提醒</h3>
+      <ul>
+        <li>旅館無停車場，租車/騎車前往可直接停門口，開車者可請櫃台介紹特約停車場（約100元/天）。</li>
+        <li>七月台東日照強，全程注意防曬補水。</li>
+        <li>若想更從容，可將下午行程提早至14:30結束，貼合博覽會「慢生活」主題。</li>
+        <li>展區地圖與最新交通資訊：<a class="officiallink" style="margin-left:0;" href="https://taitungexpo2026.com.tw/traffic" target="_blank">官網交通資訊頁</a>；活動場次與時段：<a class="officiallink" href="https://taitungexpo2026.com.tw/event/list" target="_blank">官網活動行事曆</a></li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  2026 台東博覽會 SLOW FOR LIFE｜展期 2026.07.03 – 08.20｜官網：<a href="https://taitungexpo2026.com.tw" target="_blank" style="color:var(--taitung-blue);">taitungexpo2026.com.tw</a>｜資訊請以官網最新公告為準
+</footer>
+
+</body>
+</html>
